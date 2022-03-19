@@ -1,4 +1,4 @@
-package com.kata.bank.api;
+package com.kata.bank.adapters.api;
 
 import java.math.BigDecimal;
 
@@ -15,7 +15,7 @@ public class DepositApiTest {
 	private WebTestClient client;
 
 	@Test
-	void get() {
+	void deposit() {
 		String accountId = "id1";
 		BigDecimal ammount = new BigDecimal("10");
 		client.post().uri("/deposit/" + accountId + "/" + ammount)
