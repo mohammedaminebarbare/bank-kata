@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.kata.bank.application.ports.DepositUseCase;
+import com.kata.bank.application.ports.WithdrawUseCase;
 
 @WebFluxTest
 public class BankAccountApiTest {
@@ -22,6 +23,9 @@ public class BankAccountApiTest {
 	
 	@MockBean
 	private DepositUseCase depositUseCase;
+	
+	@MockBean
+	private WithdrawUseCase withdrawUseCase ;
 	
 
 	@Test
@@ -57,8 +61,9 @@ public class BankAccountApiTest {
 		// Given
 		String accountId = "id3";
 		BigDecimal ammount = new BigDecimal("10");
+		when(withdrawUseCase.withdraw(ammount, accountId)).thenReturn(true);
 		// When
-		client.post().uri("/withdraw/" + accountId + "/" + ammount)
+		client.get().uri("/withdraw/" + accountId + "/" + ammount)
 			.accept(MediaType.APPLICATION_JSON)
 			.exchange()
 		// Then
