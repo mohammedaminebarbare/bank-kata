@@ -1,5 +1,6 @@
 package com.kata.bank.application.services;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +28,7 @@ public class DepositServiceTest {
 	private DepositService service;
 	
 	@Test
-	void shouldDepositSuccesfully() {
+	void itShouldDepositSuccesfully() {
 		// Given
 		String id = "id";
 		BigDecimal ammount = new BigDecimal(10.00);
@@ -40,6 +41,21 @@ public class DepositServiceTest {
 		
 		// Then
 		assertTrue(result);
+		
+	}
+	
+	@Test
+	void itShouldNotDepositSuccesfully() {
+		// Given
+		String id = "id2";
+		BigDecimal ammount = new BigDecimal(10.00);
+		when(loadBankAccountPortMock.load(id)).thenReturn(Optional.empty());
+		
+		// When
+		boolean result = service.deposit(ammount, id);
+		
+		// Then
+		assertFalse(result);
 		
 	}
 	
