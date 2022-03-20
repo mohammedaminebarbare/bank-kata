@@ -1,24 +1,45 @@
 package com.kata.bank.application.services;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.when;
+
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.kata.bank.application.entities.BankAccount;
+import com.kata.bank.application.ports.LoadBankAccountPort;
+import com.kata.bank.application.ports.SaveBankAccountPort;
 
 @SpringBootTest
 public class DepositServiceTest {
-
-	@Autowired
+	
+	@Mock
+	private LoadBankAccountPort loadBankAccountPortMock;
+	@Mock
+	private SaveBankAccountPort saveBankAccountPortMock;
+	
+	@InjectMocks
 	private DepositService service;
+	
 	@Test
 	void shouldDepositSuccesfully() {
 		// Given
 		String id = "id";
 		BigDecimal ammount = new BigDecimal(10.00);
+		BigDecimal balance = new BigDecimal(10.00);
+		BankAccount account = new BankAccount(id, balance);
+		when(loadBankAccountPortMock.load(id)).thenReturn(Optional.of(account));
 		
 		// When
-		service.deposit(ammount, id);
+		boolean result = service.deposit(ammount, id);
+		
+		// Then
+		assertTrue(result);
 		
 	}
 	
