@@ -1,7 +1,7 @@
 package com.kata.bank.adapters.persistence;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
 
@@ -15,10 +15,10 @@ import com.kata.bank.application.entities.BankAccount;
 public class BankAccountPersistenceTest {
 	
 	@Autowired
-	private BankAccountRepository repository;
+	private BankAccountH2Repository repository;
 	
 	@Test
-	void itShouldSave () {
+	void itShouldSave() {
 		// given
 		String id = "id";
 		BigDecimal balance = new BigDecimal(100);
@@ -29,9 +29,9 @@ public class BankAccountPersistenceTest {
 		
 		//then
 		BankAccount persistedBankAccount = repository.load(id);
-		assertThat(persistedBankAccount != null);
+		assertTrue(persistedBankAccount != null);
 		assertEquals(persistedBankAccount.getId(), id);
-		assertEquals(persistedBankAccount.getBalance(), balance);
+		assertTrue(balance.compareTo(persistedBankAccount.getBalance()) == 0);
 		
 	}
 
