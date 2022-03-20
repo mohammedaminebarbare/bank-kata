@@ -13,5 +13,11 @@ public class BankAccount {
 	private BigDecimal balance;
 	
 	
+	public void deposit(BigDecimal ammount) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 }
