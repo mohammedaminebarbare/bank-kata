@@ -20,6 +20,7 @@ public class DepositService implements DepositUseCase{
 	public boolean deposit(BigDecimal ammount, String id) {
 		Optional<BankAccount> bankAccOptional = loadBankAccountPort.load(id);
 		if(bankAccOptional.isEmpty())
+			//could be managing this through an exception but i chose to return a false and manage it in the api
 			return false;
 		BankAccount account = bankAccOptional.get();
 		account.deposit(ammount);
