@@ -16,7 +16,7 @@ import com.kata.bank.application.entities.BankAccount;
 public class BankAccountPersistenceTest {
 	
 	@Autowired
-	private BankAccountH2Repository repository;
+	private BankAccountRepository repository;
 	
 	@Test
 	void itShouldSave() {

@@ -1,6 +1,5 @@
 package com.kata.bank.adapters.persistence;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import com.kata.bank.application.entities.BankAccount;
 import com.kata.bank.application.ports.SaveBankAccountPort;
-import com.kata.bank.application.ports.loadBankAccountPort;
+import com.kata.bank.application.ports.LoadBankAccountPort;
 
 
 @Repository
-public class BankAccountH2Repository implements loadBankAccountPort, SaveBankAccountPort {
+public class BankAccountRepository implements LoadBankAccountPort, SaveBankAccountPort {
 	
 	@Autowired
 	private SpringDataBankAccountH2Repository repository ;
