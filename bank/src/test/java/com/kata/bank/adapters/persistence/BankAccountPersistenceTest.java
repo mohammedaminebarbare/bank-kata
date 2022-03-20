@@ -27,6 +27,7 @@ public class BankAccountPersistenceTest {
 		// when 
 		repository.save(bankAccount);
 		
+		
 		//then
 		BankAccount persistedBankAccount = repository.load(id);
 		assertTrue(persistedBankAccount != null);
