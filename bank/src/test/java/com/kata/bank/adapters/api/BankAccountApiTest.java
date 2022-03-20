@@ -70,5 +70,31 @@ public class BankAccountApiTest {
 			.expectStatus().isOk();
 	}
 	
-
+	@Test
+	void itShouldNotWithdraw() {
+		// Given
+		String accountId = "id3";
+		BigDecimal ammount = new BigDecimal("10");
+		when(withdrawUseCase.withdraw(ammount, accountId)).thenReturn(false);
+		// When
+		client.get().uri("/withdraw/" + accountId + "/" + ammount)
+			.accept(MediaType.APPLICATION_JSON)
+			.exchange()
+		// Then
+			.expectStatus().isBadRequest();
+	}
+	
+	
+	@Test
+	void itShouldGetHistory() {
+		// Given
+		String accountId = "id4";
+		// When
+		client.get().uri("/history/" + accountId)
+			.accept(MediaType.APPLICATION_JSON)
+			.exchange()
+		// Then
+			.expectStatus().isOk();
+	}
+	
 }
