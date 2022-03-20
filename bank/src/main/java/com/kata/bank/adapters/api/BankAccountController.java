@@ -7,11 +7,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class AccountController {
+public class BankAccountController {
 
 	@PostMapping("/deposit/{accountId}/{ammount}")
 	void deposit(@PathVariable final String accountId, @PathVariable final BigDecimal ammount) {
+		
 	}
-	
-	
 }

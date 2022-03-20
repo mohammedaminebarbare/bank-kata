@@ -9,13 +9,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @WebFluxTest
-public class DepositApiTest {
+public class BankAccountApiTest {
 
 	@Autowired
 	private WebTestClient client;
 
 	@Test
-	void deposit() {
+	void itShouldDeposit() {
 		String accountId = "id1";
 		BigDecimal ammount = new BigDecimal("10");
 		client.post().uri("/deposit/" + accountId + "/" + ammount)
