@@ -14,8 +14,16 @@ public class BankAccount {
 	
 	
 	public void deposit(BigDecimal ammount) {
-		// TODO Auto-generated method stub
-		
+		balance = balance.add(ammount);
+	}
+	
+	public boolean withdraw(BigDecimal ammount) {
+		// no #decouvert ;)
+		// did not manage the ammount == 0 case and other cases ...
+		if(BigDecimal.ZERO.compareTo(balance) == 1 || BigDecimal.ZERO.compareTo(balance) == 0 || balance.compareTo(ammount) == -1)
+			return false;
+		balance = balance.subtract(ammount); 
+		return true;
 	}
 	
 	
