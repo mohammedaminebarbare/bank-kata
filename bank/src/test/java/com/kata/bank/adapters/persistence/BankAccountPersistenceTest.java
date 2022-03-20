@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import org.junit.jupiter.api.Test;
 
+import com.kata.bank.application.entities.BankAccount;
+
 public class BankAccountPersistenceTest {
 	
 	private BankAccountRepository repository;
@@ -15,8 +17,7 @@ public class BankAccountPersistenceTest {
 		BigDecimal ammount = new BigDecimal(10);
 		BigDecimal balance = new BigDecimal(100);
 		BankAccount bankAccount = new BankAccount(id, balance);
-		// when 
-		repository.save(bankAccount);
+		
 	}
 
 }
