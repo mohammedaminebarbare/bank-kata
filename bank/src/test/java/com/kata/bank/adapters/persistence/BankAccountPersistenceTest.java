@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,11 @@ public class BankAccountPersistenceTest {
 		// when 
 		repository.save(bankAccount);
 		
-		
 		//then
-		BankAccount persistedBankAccount = repository.load(id);
-		assertTrue(persistedBankAccount != null);
-		assertEquals(persistedBankAccount.getId(), id);
-		assertTrue(balance.compareTo(persistedBankAccount.getBalance()) == 0);
+		Optional<BankAccount> persistedBankAccount = repository.load(id);
+		assertTrue(persistedBankAccount.isPresent());
+		assertEquals(persistedBankAccount.get().getId(), id);
+		assertTrue(balance.compareTo(persistedBankAccount.get().getBalance()) == 0);
 		
 	}
 

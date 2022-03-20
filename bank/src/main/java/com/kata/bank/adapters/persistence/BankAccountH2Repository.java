@@ -24,7 +24,7 @@ public class BankAccountH2Repository implements loadBankAccountPort, SaveBankAcc
 	}
 
 	@Override
-	public BankAccount load(String id) {
+	public Optional<BankAccount> load(String id) {
 		return bankAccountMapper(repository.findById(id));
 	}
 	
@@ -42,13 +42,11 @@ public class BankAccountH2Repository implements loadBankAccountPort, SaveBankAcc
 	 * @param account
 	 * @return 
 	 */
-	private BankAccount bankAccountMapper(Optional<BankAccountJpaEntity> account) {
+	private Optional<BankAccount> bankAccountMapper(Optional<BankAccountJpaEntity> account) {
 		if(!account.isPresent())
-			// could be returning an optional in this method but for simplicity reasons chose to return a null
-			// could also manage this through exceptions maybe ...
-			return null;
+			return Optional.empty();
 		
-		return new BankAccount(account.get().getId(), account.get().getBalance());
+		return Optional.of(new BankAccount(account.get().getId(), account.get().getBalance()));
 	}
 
 
