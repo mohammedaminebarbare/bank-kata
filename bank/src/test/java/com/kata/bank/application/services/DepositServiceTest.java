@@ -30,7 +30,7 @@ public class DepositServiceTest {
 	@Test
 	void itShouldDepositSuccesfully() {
 		// Given
-		String id = "id";
+		Long id = 10L;
 		BigDecimal ammount = new BigDecimal(10.00);
 		BigDecimal balance = new BigDecimal(10.00);
 		BankAccount account = new BankAccount(id, balance);
@@ -47,7 +47,7 @@ public class DepositServiceTest {
 	@Test
 	void itShouldNotDepositSuccesfully() {
 		// Given
-		String id = "id2";
+		Long id = 10L;
 		BigDecimal ammount = new BigDecimal(10.00);
 		when(loadBankAccountPortMock.load(id)).thenReturn(Optional.empty());
 		

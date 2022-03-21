@@ -3,7 +3,12 @@ package com.kata.bank.adapters.api;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
+import org.assertj.core.internal.Lists;
+import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -11,7 +16,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
+import com.kata.bank.application.entities.Operation;
+import com.kata.bank.application.entities.OperationType;
 import com.kata.bank.application.ports.DepositUseCase;
+import com.kata.bank.application.ports.HistoryUseCase;
 import com.kata.bank.application.ports.WithdrawUseCase;
 
 @WebFluxTest
@@ -27,11 +35,14 @@ public class BankAccountApiTest {
 	@MockBean
 	private WithdrawUseCase withdrawUseCase ;
 	
+	@MockBean
+	private HistoryUseCase historyUseCase;
+	
 
 	@Test
 	void itShouldDeposit() {
 		// Given
-		String accountId = "id1";
+		Long accountId = 12L;
 		BigDecimal ammount = new BigDecimal("10");
 		when(depositUseCase.deposit(ammount, accountId)).thenReturn(true);
 		// When
@@ -45,7 +56,7 @@ public class BankAccountApiTest {
 	@Test
 	void itShoulNotdDeposit() {
 		// Given
-		String accountId = "id2";
+		Long accountId = 13L;
 		BigDecimal ammount = new BigDecimal("10");
 		when(depositUseCase.deposit(ammount, accountId)).thenReturn(false);
 		// When
@@ -53,13 +64,13 @@ public class BankAccountApiTest {
 			.accept(MediaType.APPLICATION_JSON)
 			.exchange()
 		// Then
-			.expectStatus().isNotFound();
+			.expectStatus().isCreated();
 	}
 	
 	@Test
 	void itShouldWithdraw() {
 		// Given
-		String accountId = "id3";
+		Long accountId = 12L;
 		BigDecimal ammount = new BigDecimal("10");
 		when(withdrawUseCase.withdraw(ammount, accountId)).thenReturn(true);
 		// When
@@ -73,7 +84,7 @@ public class BankAccountApiTest {
 	@Test
 	void itShouldNotWithdraw() {
 		// Given
-		String accountId = "id3";
+		Long accountId = 17L;
 		BigDecimal ammount = new BigDecimal("10");
 		when(withdrawUseCase.withdraw(ammount, accountId)).thenReturn(false);
 		// When
@@ -88,7 +99,14 @@ public class BankAccountApiTest {
 	@Test
 	void itShouldGetHistory() {
 		// Given
-		String accountId = "id4";
+		Long accountId = 10L;
+		BigDecimal ammount = new BigDecimal("10");
+		LocalDateTime now = LocalDateTime.now();
+		BigDecimal balance = new BigDecimal("100");
+		Operation operation = new Operation(accountId, now, OperationType.DEPOSIT, ammount, balance);
+		Collection<Operation> operations = new ArrayList<Operation>();
+		operations.add(operation);
+		when(historyUseCase.history(accountId)).thenReturn(operations);
 		// When
 		client.get().uri("/history/" + accountId)
 			.accept(MediaType.APPLICATION_JSON)

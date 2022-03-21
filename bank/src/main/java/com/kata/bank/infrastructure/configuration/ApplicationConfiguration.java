@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import com.kata.bank.BankApplication;
 import com.kata.bank.adapters.persistence.BankAccountRepository;
 import com.kata.bank.application.services.DepositService;
+import com.kata.bank.application.services.HistoryService;
 import com.kata.bank.application.services.WithdrawService;
 
 @ComponentScan(basePackageClasses = BankApplication.class)
@@ -22,5 +23,10 @@ public class ApplicationConfiguration {
 	@Bean
 	WithdrawService withdrawService(BankAccountRepository bankAccountRepository) {
 		return new WithdrawService(bankAccountRepository, bankAccountRepository);
+	}
+	
+	@Bean
+	HistoryService historyService(BankAccountRepository bankAccountRepository) {
+		return new HistoryService(bankAccountRepository);
 	}
 }

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class WithdrawServiceTest {
 	@Test
 	void itShouldWithdrawSuccesfully() {
 		// Given
-		String id = "id";
+		Long id = 10L;
 		BigDecimal ammount = new BigDecimal(10.00);
 		BigDecimal balance = new BigDecimal(100.00);
 		BankAccount account = new BankAccount(id, balance);
@@ -47,7 +48,7 @@ public class WithdrawServiceTest {
 	@Test
 	void itShouldNotWithdrawSuccesfully() {
 		// Given
-		String id = "id2";
+		Long id = 10L;
 		BigDecimal ammount = new BigDecimal(10.00);
 		when(loadBankAccountPortMock.load(id)).thenReturn(Optional.empty());
 		
@@ -62,7 +63,7 @@ public class WithdrawServiceTest {
 	@Test
 	void itShouldNotWithdrawSuccesfullyBecauseOfBalance() {
 		// Given
-		String id = "id2";
+		Long id = 10L;
 		BigDecimal ammount = new BigDecimal(10.00);
 		BigDecimal balance = new BigDecimal(9.00);
 		BankAccount account = new BankAccount(id, balance);

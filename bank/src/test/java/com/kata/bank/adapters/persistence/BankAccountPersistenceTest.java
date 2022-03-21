@@ -21,17 +21,17 @@ public class BankAccountPersistenceTest {
 	@Test
 	void itShouldSave() {
 		// given
-		String id = "id";
+		Long accountId = 10L;
 		BigDecimal balance = new BigDecimal(100);
-		BankAccount bankAccount = new BankAccount(id, balance);
+		BankAccount bankAccount = new BankAccount(accountId, balance);
 		
 		// when 
 		repository.save(bankAccount);
 		
 		//then
-		Optional<BankAccount> persistedBankAccount = repository.load(id);
+		Optional<BankAccount> persistedBankAccount = repository.load(accountId);
 		assertTrue(persistedBankAccount.isPresent());
-		assertEquals(persistedBankAccount.get().getId(), id);
+		assertEquals(persistedBankAccount.get().getId(), accountId);
 		assertTrue(balance.compareTo(persistedBankAccount.get().getBalance()) == 0);
 		
 	}

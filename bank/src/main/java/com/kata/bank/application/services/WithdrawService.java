@@ -19,7 +19,7 @@ public class WithdrawService implements WithdrawUseCase{
 	
 
 	@Override
-	public boolean withdraw(BigDecimal ammount, String id) {
+	public boolean withdraw(BigDecimal ammount, Long id) {
 		Optional<BankAccount> bankAccOptional = loadBankAccountPort.load(id);
 		if(bankAccOptional.isEmpty())
 			//could be managing this through an exception but i chose to return a false and manage it in the api
